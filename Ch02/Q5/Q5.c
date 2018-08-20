@@ -8,27 +8,28 @@
 // type형 x와 y값을 교환
 #define swap(type, x, y) do{ type t = x; x=y; y=t; } while(0)
 
-// 요소 개수가 n인 배열 a의 요소를 역순으로 정렬
-void ary_reverse(int a[], int n)
+void ary_func(int a[], int n)
 {
-	int i, j;
-	for (i = 0; i < n / 2; i++)
-	{
-		for (j = 0; j < n; j++)
-		{
-			printf("%d ", a[j]);
-		}
-		printf("\n");
-		printf("a[%d]와 a[%d]를 교환합니다.\n", i, n - i - 1);
-		swap(int, a[i], a[n - i - 1]);
-	}
-
+	int j;
 	for (j = 0; j < n; j++)
 	{
 		printf("%d ", a[j]);
 	}
 	printf("\n");
+}
 
+// 요소 개수가 n인 배열 a의 요소를 역순으로 정렬
+void ary_reverse(int a[], int n)
+{
+	int i;
+	for (i = 0; i < n / 2; i++)
+	{
+		ary_func(a, n);
+		printf("a[%d]와 a[%d]를 교환합니다.\n", i, n - i - 1);
+		swap(int, a[i], a[n - i - 1]);
+	}
+
+	ary_func(a, n);
 	printf("역순 정렬을 종료합니다.\n\n");
 
 }
