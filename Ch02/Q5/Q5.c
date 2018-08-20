@@ -1,6 +1,6 @@
 // 날  짜: 08/20/2018, 17:10
 // 작성자: Kim92
-// 내  용: 
+// 내  용: P.75 연습문제 5번
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,6 +8,7 @@
 // type형 x와 y값을 교환
 #define swap(type, x, y) do{ type t = x; x=y; y=t; } while(0)
 
+// 현재 배열의 저정된 값 출력 함수
 void ary_func(int a[], int n)
 {
 	int j;
