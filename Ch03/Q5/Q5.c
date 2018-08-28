@@ -1,0 +1,88 @@
+// 날  짜: 08/28/2018, 20:13
+// 작성자: Kim92
+// 내  용: 우리가 살펴본 이진 검색 알고리즘 프로그램은 검색할 값과 같은 값을 갖는 요소가 하나 이상일 경우
+//			그 요소 중에서 맨 앞의 요소를 찾지 못합니다. 예를들어, 아래 그림의 배열에서 7을 검색하면
+//			중앙에 위치하는 a[5]를 검색합니다. 맨 앞의 요소를 찾는 bin_search2 함수를 작성해보세요.
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int bin_search2(const int a[], int n, int key)
+{
+	int pl = 0;			// 검색 범위 맨 앞의 인덱스
+	int pr = n - 1;		// 검색 범위 맨 끝의 인덱스
+	int pc;				// 검색 범위 한가운데의 인덱스
+	int result = 0;
+
+	do {
+		pc = (pl + pr) / 2;
+		if (a[pc] == key)	// 검색 성공
+		{
+			for (int i = pc; 0 <= i; i--)
+			{
+				result = (a[pc] == a[i]) ? i : pc;
+			}
+			return result;
+		}
+		else if (a[pc] < key)
+			pl = pc + 1;
+		else
+			pr = pc - 1;
+	} while (pl <= pr);
+
+	return -1;		// 검색 실패
+}
+
+// 요소의 개수가 n인 배열 a에서 key와 일치하는 요소를 이진 검색
+int bin_search(const int a[], int n, int key)
+{
+	int pl = 0;			// 검색 범위 맨 앞의 인덱스
+	int pr = n - 1;		// 검색 범위 맨 끝의 인덱스
+	int pc;				// 검색 범위 한가운데의 인덱스
+
+	do {
+		pc = (pl + pr) / 2;
+		if (a[pc] == key)	// 검색 성공
+			return pc;
+		else if (a[pc] < key)
+			pl = pc + 1;
+		else
+			pr = pc - 1;
+	} while (pl <= pr);
+
+	return -1;		// 검색 실패
+}
+
+int main(void)
+{
+	int i, nx, ky, idx;
+	int *x;								// 배열의 첫 번째 요소에 대한 포인터
+
+	puts("이진 검색");
+	printf("요소 개수 : ");
+	scanf("%d", &nx);
+	x = calloc(nx + 1, sizeof(int));	// 요소의 개수가 nx인 int형 배열을 생성
+
+	printf("오름차순으로 입력하세요.\n");
+	printf("x[0] : ");
+	scanf("%d", &x[0]);
+	for (i = 1; i < nx; i++)
+	{
+		do {
+			printf("x[%d] : ", i);
+			scanf("%d", &x[i]);
+		} while (x[i] < x[i - 1]);		// 바로 앞의 값보다 작으면 다시 입력
+
+	}
+	printf("검색값: ");
+	scanf("%d", &ky);
+	idx = bin_search2(x, nx, ky);		// 배열 x에서 값이 ky인 요소를 이진 검색
+
+	if (idx == -1)
+		puts("검색 실패!");
+	else
+		printf("%d(은)는 x[%d]에 있습니다.\n", ky, idx);
+	free(x);		// 배열 해제
+
+	return 0;
+}
